@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dados Pessoais</title>
+</head>
+<body>
+    <h1>Dados Pessoais</h1>
+
+    <h2>Primeira Pessoa:</h2>
+    <label for="nome1">Nome:</label>
+    <input type="text" id="nome1"><br>
+    <label for="idade1">Idade:</label>
+    <input type="number" id="idade1"><br>
+    <label for="pai1">Nome do Pai:</label>
+    <input type="text" id="pai1"><br>
+    <label for="mae1">Nome da Mãe:</label>
+    <input type="text" id="mae1"><br>
+    <label for="rua1">Rua:</label>
+    <input type="text" id="rua1"><br>
+    <label for="cidade1">Cidade:</label>
+    <input type="text" id="cidade1"><br>
+    <label for="estado1">Estado:</label>
+    <input type="text" id="estado1"><br><br>
+
+    <h2>Segunda Pessoa:</h2>
+    <label for="nome2">Nome:</label>
+    <input type="text" id="nome2"><br>
+    <label for="idade2">Idade:</label>
+    <input type="number" id="idade2"><br>
+    <label for="pai2">Nome do Pai:</label>
+    <input type="text" id="pai2"><br>
+    <label for="mae2">Nome da Mãe:</label>
+    <input type="text" id="mae2"><br>
+    <label for="rua2">Rua:</label>
+    <input type="text" id="rua2"><br>
+    <label for="cidade2">Cidade:</label>
+    <input type="text" id="cidade2"><br>
+    <label for="estado2">Estado:</label>
+    <input type="text" id="estado2"><br><br>
+
+    <button onclick="mostrarDados()">Mostrar Dados</button>
+
+    <div id="resultado" style="display:none;">
+        <h2>Resultados:</h2>
+        <div id="pessoa1"></div>
+        <div id="pessoa2"></div>
+    </div>
+
+    <script>
+        function mostrarDados() {
+            const pessoa1 = {
+                nome: document.getElementById("nome1").value,
+                idade: document.getElementById("idade1").value,
+                filiacao: {
+                    nomeDoPai: document.getElementById("pai1").value,
+                    nomeDaMae: document.getElementById("mae1").value
+                },
+                endereco: {
+                    rua: document.getElementById("rua1").value,
+                    cidade: document.getElementById("cidade1").value,
+                    estado: document.getElementById("estado1").value
+                }
+            };
+
+            const pessoa2 = {
+                nome: document.getElementById("nome2").value,
+                idade: document.getElementById("idade2").value,
+                filiacao: {
+                    nomeDoPai: document.getElementById("pai2").value,
+                    nomeDaMae: document.getElementById("mae2").value
+                },
+                endereco: {
+                    rua: document.getElementById("rua2").value,
+                    cidade: document.getElementById("cidade2").value,
+                    estado: document.getElementById("estado2").value
+                }
+            };
+
+            const dadosPessoa1 = document.getElementById("pessoa1");
+            dadosPessoa1.innerHTML = `
+                <h3>${pessoa1.nome}</h3>
+                <p>Idade: ${pessoa1.idade}</p>
+                <p>Filiação: ${pessoa1.filiacao.nomeDoPai} e ${pessoa1.filiacao.nomeDaMae}</p>
+                <p>Endereço: ${pessoa1.endereco.rua}, ${pessoa1.endereco.cidade}, ${pessoa1.endereco.estado}</p>
+                <p>Dados completos: ${verificarDadosCompletos(pessoa1) ? "Sim" : "Não"}</p>
+            `;
+
+            const dadosPessoa2 = document.getElementById("pessoa2");
+            dadosPessoa2.innerHTML = `
+                <h3>${pessoa2.nome}</h3>
+                <p>Idade: ${pessoa2.idade}</p>
+                <p>Filiação: ${pessoa2.filiacao.nomeDoPai} e ${pessoa2.filiacao.nomeDaMae}</p>
+                <p>Endereço: ${pessoa2.endereco.rua}, ${pessoa2.endereco.cidade}, ${pessoa2.endereco.estado}</p>
+                <p>Dados completos: ${verificarDadosCompletos(pessoa2) ? "Sim" : "Não"}</p>
+            `;
+
+            document.getElementById("resultado").style.display = "block";
+        }
+
+        function verificarDadosCompletos(pessoa) {
+            return pessoa.nome && pessoa.idade && pessoa.filiacao.nomeDoPai &&
+                   pessoa.filiacao.nomeDaMae && pessoa.endereco.rua && 
+                   pessoa.endereco.cidade && pessoa.endereco.estado;
+        }
+    </script>
+</body>
+</html>

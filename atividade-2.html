@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altura e Sexo</title>
+    <style>
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Informe os dados das pessoas:</h1>
+    <div id="form">
+        <div id="inputs"></div>
+        <button onclick="adicionarPessoa()">Adicionar Pessoa</button>
+        <button onclick="calcularResultados()">Calcular Resultados</button>
+    </div>
+
+    <div id="resultados" style="display: none;">
+        <h2>Resultados:</h2>
+        <p>A maior altura do grupo é: <span id="maiorAltura"></span></p>
+        <p>A menor altura do grupo é: <span id="menorAltura"></span></p>
+        <p>A média de altura dos homens é: <span id="mediaAlturaHomens"></span></p>
+        <p>O número de mulheres é: <span id="numeroMulheres"></span></p>
+    </div>
+
+    <script>
+        let pessoas = [];
+
+        function adicionarPessoa() {
+            const inputs = document.getElementById('inputs');
+
+            const div = document.createElement('div');
+            div.innerHTML = `
+                <label for="altura">Altura:</label>
+                <input type="number" step="0.01" id="altura">
+                <label for="sexo">Sexo (M/F):</label>
+                <input type="text" maxlength="1" id="sexo">
+            `;
+            inputs.appendChild(div);
+        }
+
+        function calcularResultados() {
+            const alturas = [];
+            let somaAlturaHomens = 0;
+            let numMulheres = 0;
+
+            const inputsAltura = document.querySelectorAll('#inputs input[id="altura"]');
+            const inputsSexo = document.querySelectorAll('#inputs input[id="sexo"]');
+
+            for (let i = 0; i < inputsAltura.length; i++) {
+                const altura = parseFloat(inputsAltura[i].value);
+                const sexo = inputsSexo[i].value.toUpperCase();
+
+                alturas.push(altura);
+
+                if (sexo === 'M') {
+                    somaAlturaHomens += altura;
+                } else if (sexo === 'F') {
+                    numMulheres++;
+                }
+            }
+
+            const maiorAltura = Math.max(...alturas);
+            const menorAltura = Math.min(...alturas);
+            const mediaAlturaHomens = somaAlturaHomens / (inputsAltura.length - numMulheres);
+
+            document.getElementById('maiorAltura').textContent = maiorAltura.toFixed(2);
+            document.getElementById('menorAltura').textContent = menorAltura.toFixed(2);
+            document.getElementById('mediaAlturaHomens').textContent = mediaAlturaHomens.toFixed(2);
+            document.getElementById('numeroMulheres').textContent = numMulheres;
+
+            document.getElementById('resultados').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

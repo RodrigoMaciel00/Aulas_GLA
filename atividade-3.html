@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soma de Valores</title>
+</head>
+<body>
+    <h1>Soma de Valores</h1>
+
+    <label for="valores">Insira os valores separados por vírgula:</label><br>
+    <input type="text" id="valores"><br><br>
+
+    <button onclick="calcularSoma()">Calcular Soma</button><br><br>
+
+    <div id="resultado"></div>
+
+    <script>
+        function calcularSoma() {
+            const valoresInput = document.getElementById("valores").value;
+            const valoresArray = valoresInput.split(",").map(valor => parseFloat(valor.trim()));
+
+            const soma = somar(...valoresArray);
+            const resultadoDiv = document.getElementById("resultado");
+            resultadoDiv.innerHTML = `A soma dos valores é: ${soma}`;
+        }
+
+        function somar(...valores) {
+            return valores.reduce((total, valor) => total + valor, 0);
+        }
+    </script>
+</body>
+</html>
